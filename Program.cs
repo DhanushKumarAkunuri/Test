@@ -15,8 +15,20 @@ class Program
         }
     }
 
-    static string ToggleString(string s)
+    static string ToggleString(string input)
     {
-        return new string(s.Select(c => char.IsLower(c) ? char.ToUpper(c) : char.ToLower(c)).ToArray());
+        if(input.Length < 100)
+            return new string(input.Select(c => char.IsLower(c) ? char.ToUpper(c) : char.ToLower(c)).ToArray());
+        else
+        {
+            char[] output = input.ToCharArray();
+            Parallel.For(0, output.Length, i => {
+                if(char.IsLower(output[i]))
+                    output[i] = char.ToUpper(output[i]);
+                else
+                    output[i] = char.ToLower(output[i]);
+            });
+            return new string(output);
+        }
     }
 }
